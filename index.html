@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   TOKENS
+   TOKENS (Style Reference shadcn/ui)
    ============================================================ */
 :root{
   --color-canvas:#f5f5f5;
@@ -307,6 +307,31 @@ a{color:inherit;text-decoration:none}
 .cat-track > i{display:block;height:100%;border-radius:99px;background:var(--color-ink-soft)}
 
 /* ============================================================
+   UI MOCKUPS (Nuevas funciones)
+   ============================================================ */
+.mockup-box{
+  background:var(--color-canvas);
+  border:1px solid var(--color-hairline);
+  border-radius:var(--radius-xl);
+  padding:12px;
+  margin-top:8px;
+}
+.mockup-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--color-hairline);}
+.mockup-row:last-child{border-bottom:none;padding-bottom:0;}
+.mockup-row:first-child{padding-top:0;}
+.mockup-icon{
+  width:28px;height:28px;border-radius:8px;background:var(--color-paper);border:1px solid var(--color-hairline);display:grid;place-items:center;flex:none;
+}
+.mockup-text{display:flex;flex-direction:column;gap:2px;flex:1;}
+.mockup-text strong{font-size:13px;font-weight:500;}
+.mockup-text span{font-size:11px;color:var(--color-mid-gray);}
+.mockup-amt{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;}
+
+.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.tag-pill{background:var(--color-paper);border:1px solid var(--color-hairline);color:var(--color-ink-soft);padding:4px 10px;border-radius:99px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:4px;}
+.tag-pill.active{background:var(--color-ink);color:var(--color-paper);border-color:var(--color-ink);}
+
+/* ============================================================
    MSI CARD
    ============================================================ */
 .msi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
@@ -325,7 +350,7 @@ a{color:inherit;text-decoration:none}
   border-radius:var(--radius-xl);
   font-size:13px;color:var(--color-ink-soft);
 }
-.msi-alert .icon{color:var(--color-mid-gray)}
+.msi-alert .icon{color:var(--color-ember)}
 
 /* ============================================================
    BAND / MÉXICO
@@ -449,7 +474,7 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
     <nav class="nav-links" aria-label="Navegación principal">
       <a href="#compartidos">Compartidos</a>
       <a href="#personal">Personal</a>
-      <a href="#msi">Meses sin intereses</a>
+      <a href="#nuevas-funciones">Funciones</a>
       <a href="#gratis">Gratis</a>
     </nav>
     <div class="nav-actions">
@@ -471,11 +496,11 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
         <div class="hero-copy">
           <span class="badge badge-outline"><span class="dot" aria-hidden="true"></span> 100% gratis · Hecha en México</span>
 
-          <h1 class="display">Controla tus gastos personales y compartidos en una sola app.</h1>
+          <h1 class="display">¡Que se mochten! Controla tus gastos personales y compartidos.</h1>
 
           <p class="lead">
-            Crea grupos ilimitados, divide cuentas automáticamente, escanea tus tickets
-            y lleva el control de tus meses sin intereses. Sin costo, sin letras chiquitas.
+            Crea grupos para cada plan (roomies, pareja, viajes). Divide cuentas, escanea tickets con IA, 
+            dicta tus gastos por voz y no te dejes trancear con los pagos.
           </p>
 
           <div class="hero-cta">
@@ -483,13 +508,13 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
               Empezar gratis
               <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
             </a>
-            <a href="#compartidos" class="btn btn-ghost btn-lg">Ver cómo funciona</a>
+            <a href="#nuevas-funciones" class="btn btn-ghost btn-lg">Ver funciones</a>
           </div>
 
           <ul class="hero-points">
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Grupos ilimitados</li>
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Escaneo de tickets</li>
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Control de MSI</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Gasto por voz</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Escaneo con IA</li>
+            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios WhatsApp</li>
           </ul>
         </div>
 
@@ -559,8 +584,8 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Gastos compartidos · Gratis</span>
-        <h2 class="h2">Crea grupos ilimitados para dividir gastos con quien quieras.</h2>
-        <p class="lead">Divide en partes iguales, por porcentaje o montos específicos. La app calcula automáticamente quién debe a quién.</p>
+        <h2 class="h2">¡Que nadie se haga rosca! Crea grupos para cada plan.</h2>
+        <p class="lead">Roomies, pareja, familia, amigos o viajes. Divide en partes iguales, por porcentaje o montos exactos. Y si alguien no paga, mándale recordatorio directo a su WhatsApp.</p>
       </div>
 
       <div class="grid g-4">
@@ -569,8 +594,8 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
           <div class="tile">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>
           </div>
-          <h3>Roomies</h3>
-          <p>Renta, servicios y despensa divididos sin discusiones cada quincena.</p>
+          <h3>Roomies / Familia</h3>
+          <p>Renta, servicios (CFE, Telmex) y despensa divididos sin discusiones cada quincena.</p>
           <div class="tag-row">
             <span class="badge badge-soft">Renta</span>
             <span class="badge badge-soft">Luz</span>
@@ -593,23 +618,10 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
 
         <article class="card feature">
           <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.5"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4"/><path d="M15.5 4.6a3.5 3.5 0 0 1 0 6.8"/></svg>
-          </div>
-          <h3>Familia</h3>
-          <p>Cuentas de la casa, viajes y eventos. Todos ven el mismo número.</p>
-          <div class="tag-row">
-            <span class="badge badge-soft">CFE</span>
-            <span class="badge badge-soft">Telmex</span>
-            <span class="badge badge-soft">Eventos</span>
-          </div>
-        </article>
-
-        <article class="card feature">
-          <div class="tile">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2.5"/><path d="M3 13.5h18M12 9v12"/><path d="M12 9S9.2 9 8.2 8.1a2 2 0 1 1 3.8-1.6 2 2 0 1 1 3.8 1.6C14.8 9 12 9 12 9Z"/></svg>
           </div>
-          <h3>Amigos</h3>
-          <p>Viajes, fiestas, salidas y regalos grupales. Se acaba el “luego te pago”.</p>
+          <h3>Amigos / Eventos</h3>
+          <p>¿Carnita asada? ¿Viaje a Cancún? Crea grupos temporales y lleva el control de todo.</p>
           <div class="tag-row">
             <span class="badge badge-soft">Viajes</span>
             <span class="badge badge-soft">Fiestas</span>
@@ -617,12 +629,23 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
           </div>
         </article>
 
+        <article class="card feature">
+          <div class="tile">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l1.5-4.5a8.5 8.5 0 1 1 16.5-5Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
+          </div>
+          <h3>Recordatorios WhatsApp</h3>
+          <p>Revisa quién te debe y recuérdales mediante notificaciones push o un mensaje directo por WhatsApp.</p>
+          <div class="tag-row">
+            <span class="badge badge-soft">Cobros fáciles</span>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       GASTOS PERSONALES
+       GASTOS PERSONALES (¿Lobo solitario?)
        ============================================================ -->
   <section class="section section--tight" id="personal">
     <div class="container">
@@ -630,49 +653,56 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
 
         <div class="stack gap-16">
           <span class="eyebrow">Gastos personales · Gratis</span>
-          <h2 class="h2">Tu dinero personal, separado de los gastos compartidos.</h2>
+          <h2 class="h2">¿Lobo solitario? Tu dinero personal, separado de los gastos compartidos.</h2>
           <p class="lead">
-            Lleva el control de tus gastos individuales aunque pertenezcas a grupos.
-            Visualiza en qué gastas con estadísticas por categoría, mes a mes.
+            Registra y controla tus gastos individuales aunque pertenezcas a grupos. 
+            Visualiza en qué gastas con estadísticas por categoría, presupuestos y listas privadas.
           </p>
           <ul class="check-list" style="grid-template-columns:1fr">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Registro ilimitado de gastos personales</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Estadísticas por categoría y por mes</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Presupuestos ilimitados con alertas</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Múltiples listas compartidas o privadas</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Seguimiento automático de compras con Apple Pay</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Vista Simple o Avanzada según lo que necesites</li>
           </ul>
         </div>
 
         <div class="card card--pad-lg">
-          <div class="eyebrow">Marzo · Gastos personales</div>
-          <div class="stat-value" style="margin-top:6px">$8,450.00</div>
-          <div class="small" style="margin-top:4px">de $12,000.00 de presupuesto mensual</div>
-
-          <div class="bar-track" role="img" aria-label="70% del presupuesto utilizado">
-            <div class="bar-fill" style="width:70%"></div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <div class="eyebrow">Gastos este mes</div>
+              <div class="stat-value" style="margin-top:6px">$580.00</div>
+            </div>
+            <span class="badge badge-outline">Personal</span>
+          </div>
+          
+          <div class="small" style="margin-top:8px">Presupuesto mensual de $4,000.00</div>
+          <div class="bar-track" role="img" aria-label="14% del presupuesto utilizado">
+            <div class="bar-fill" style="width:14%"></div>
           </div>
 
-          <ul class="cat-list">
-            <li>
-              <div class="cat-top"><span class="name">Despensa</span><span class="amt">$3,200</span></div>
-              <div class="cat-track"><i style="width:76%;background:#0a0a0a"></i></div>
-            </li>
-            <li>
-              <div class="cat-top"><span class="name">Transporte</span><span class="amt">$1,850</span></div>
-              <div class="cat-track"><i style="width:52%;background:#262626"></i></div>
-            </li>
-            <li>
-              <div class="cat-top"><span class="name">Servicios</span><span class="amt">$1,400</span></div>
-              <div class="cat-track"><i style="width:40%;background:#404040"></i></div>
-            </li>
-            <li>
-              <div class="cat-top"><span class="name">Salidas</span><span class="amt">$1,200</span></div>
-              <div class="cat-track"><i style="width:34%;background:#525252"></i></div>
-            </li>
-            <li>
-              <div class="cat-top"><span class="name">Otros</span><span class="amt">$800</span></div>
-              <div class="cat-track"><i style="width:22%;background:#737373"></i></div>
-            </li>
-          </ul>
+          <div class="mockup-box">
+            <div class="mockup-row">
+              <div class="mockup-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="mockup-text">
+                <strong>Pagos a meses</strong>
+                <span>MacBook - $2,388.89 / mes</span>
+              </div>
+              <span class="badge badge-soft" style="font-size:10px">18 meses</span>
+            </div>
+            <div class="mockup-row">
+              <div class="mockup-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+              <div class="mockup-text">
+                <strong>Crear presupuestos</strong>
+                <span>Visualiza y controla por categoría</span>
+              </div>
+            </div>
+            <div class="mockup-row">
+              <div class="mockup-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+              <div class="mockup-text">
+                <strong>Pagos programados</strong>
+                <span>Agenda pagos futuros</span>
+              </div>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -680,88 +710,101 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
   </section>
 
   <!-- ============================================================
-       FEATURES
+       NUEVAS FUNCIONES (Escaneo, Voz, Etiquetas, Recurrentes)
        ============================================================ -->
-  <section class="section">
+  <section class="section" id="nuevas-funciones">
     <div class="container">
       <div class="section-head section-head--center">
-        <span class="eyebrow">Todo incluido</span>
-        <h2 class="h2">Las herramientas que sí usas, sin costo.</h2>
-        <p class="lead">Comprobantes, escaneo de tickets, MSI, tarjetas de crédito, ingresos por quincena y reportes.</p>
+        <span class="eyebrow">Tecnología a tu favor</span>
+        <h2 class="h2">Más vale prevenir que lamentar.</h2>
+        <p class="lead">Registra tus gastos al momento. Escanea el ticket, dicta por voz o automatiza tus suscripciones.</p>
       </div>
 
-      <div class="grid g-3">
-
-        <article class="card feature">
+      <div class="grid g-2" style="gap: 24px;">
+        
+        <!-- Escaneo IA -->
+        <article class="card card--pad-lg feature" style="gap: 20px;">
           <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3Z"/><path d="M9 8h6M9 12h6"/></svg>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M3 12h18"/></svg>
           </div>
-          <h3>Guarda tus comprobantes</h3>
-          <p>Toma foto de tus tickets y comprobantes para tenerlos siempre a la mano. Organizados por gasto, nunca pierdas un recibo importante.</p>
-          <div class="tag-row"><span class="badge badge-outline">Fotos ilimitadas</span></div>
+          <div>
+            <h3>Escaneo inteligente con IA</h3>
+            <p>La app lee tu ticket automáticamente, detecta los artículos y extrae monto, comercio y categoría.</p>
+          </div>
+          <div class="mockup-box" style="background:var(--color-surface-alt);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:12px; font-weight:500;">
+              <span>Confianza</span>
+              <span>90%</span>
+            </div>
+            <div class="bar-track" style="margin-top:0; height:4px;"><div class="bar-fill" style="width:90%"></div></div>
+            
+            <div class="mockup-row" style="margin-top:12px;">
+              <div class="mockup-icon">💵</div>
+              <div class="mockup-text"><strong>Monto</strong><span>$580.00</span></div>
+            </div>
+            <div class="mockup-row">
+              <div class="mockup-icon">🏪</div>
+              <div class="mockup-text"><strong>Comercio</strong><span>PIZZA LA MONA</span></div>
+            </div>
+            <div class="mockup-row">
+              <div class="mockup-icon">🍕</div>
+              <div class="mockup-text"><strong>Categoría</strong><span>Comida</span></div>
+            </div>
+            
+            <div style="margin-top:10px; font-size:10px; color:var(--color-mid-gray); text-transform:uppercase; letter-spacing:0.5px;">Artículos detectados</div>
+            <div style="font-size:11px; display:flex; flex-direction:column; gap:4px; margin-top:6px;">
+              <div style="display:flex; justify-content:space-between;"><span>PIZZA CARNES</span><span>$285.00</span></div>
+              <div style="display:flex; justify-content:space-between;"><span>TAPAS DE LA CASA</span><span>$185.00</span></div>
+            </div>
+          </div>
         </article>
 
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M3 12h18"/></svg>
-          </div>
-          <h3>Escaneo inteligente de tickets</h3>
-          <p>La app lee tu ticket automáticamente y extrae el monto, comercio y categoría. Registra gastos en segundos sin escribir nada.</p>
-          <div class="tag-row"><span class="badge badge-outline">Monto · Comercio · Categoría</span></div>
-        </article>
+        <!-- Gasto por Voz y Etiquetas -->
+        <div class="stack gap-16">
+          
+          <article class="card feature" style="flex:1;">
+            <div class="tile">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg>
+            </div>
+            <h3>Gasto por Voz</h3>
+            <p>Dicta tu gasto (ej. "Taxi a la oficina 80 pesos") y la app autocompleta el formulario por ti.</p>
+          </article>
 
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/><path d="M8.5 14h2M13.5 14h2M8.5 17h2"/></svg>
-          </div>
-          <h3>Meses sin intereses</h3>
-          <p>¿Compras a 3, 6 o 12 meses? Registra tus créditos y recibe recordatorios antes de cada fecha de pago.</p>
-          <div class="tag-row"><span class="badge badge-outline">Recordatorios</span></div>
-        </article>
+          <article class="card feature" style="flex:1;">
+            <div class="tile">
+              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 8v8"/></svg>
+            </div>
+            <h3>Buscar con Etiquetas</h3>
+            <p>Etiqueta tus gastos (ej. <strong>#cine</strong>, <strong>#viaje</strong>) y encuéntralos al instante.</p>
+            <div class="tag-list">
+              <span class="tag-pill active">#cine</span>
+              <span class="tag-pill">#viaje</span>
+              <span class="tag-pill">#súper</span>
+            </div>
+          </article>
 
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6 15h3"/></svg>
-          </div>
-          <h3>Tarjetas de crédito</h3>
-          <p>Día de corte y día límite: te decimos cuánto pagar y te avisamos antes de que se pase la fecha.</p>
-          <div class="tag-row"><span class="badge badge-outline">Corte y límite</span></div>
-        </article>
+          <article class="card feature" style="flex:1;">
+            <div class="tile">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+            </div>
+            <h3>Transacciones Recurrentes</h3>
+            <p>Crea gastos fijos para no olvidar nada.</p>
+            <div class="mockup-box" style="padding:8px 12px; margin-top:4px;">
+              <div class="mockup-row" style="padding:6px 0;">
+                <span style="font-size:14px; margin-right:4px;">🏋️</span>
+                <div class="mockup-text"><strong>Gimnasio</strong></div>
+                <span class="mockup-amt">$39.00</span>
+              </div>
+              <div class="mockup-row" style="padding:6px 0;">
+                <span style="font-size:14px; margin-right:4px;">🎬</span>
+                <div class="mockup-text"><strong>Netflix</strong></div>
+                <span class="mockup-amt">$14.99</span>
+              </div>
+            </div>
+          </article>
 
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5H18a2 2 0 0 1 2 2v1"/><rect x="3" y="7.5" width="18" height="12" rx="2.5"/><circle cx="16.5" cy="13.5" r="1.2"/></svg>
-          </div>
-          <h3>Mueve dinero entre cuentas</h3>
-          <p>Paga tu tarjeta, mueve saldo entre cuentas y anota préstamos: lo que te deben y lo que debes.</p>
-          <div class="tag-row"><span class="badge badge-outline">Préstamos</span></div>
-        </article>
-
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V11M9 19V5M14 19v-6M19 19v-9"/><path d="M2.5 21h19"/></svg>
-          </div>
-          <h3>Reportes mensuales</h3>
-          <p>Un análisis de cada mes en Reportes: en qué gastaste, cuánto ahorraste y cómo vas con tus presupuestos.</p>
-          <div class="tag-row"><span class="badge badge-outline">Análisis</span></div>
-        </article>
-
-      </div>
-
-      <div class="card card--pad-lg" style="margin-top:16px">
-        <div class="stack gap-12">
-          <span class="eyebrow">Y además</span>
-          <div class="chips">
-            <span class="chip"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 15a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9Z"/></svg> Foro renovado</span>
-            <span class="chip">Encuestas</span>
-            <span class="chip">Respuestas a comentarios</span>
-            <span class="chip">Imágenes, video y GIF</span>
-            <span class="chip">Ingresos por quincena (15 y fin de mes)</span>
-            <span class="chip">Presupuestos ilimitados</span>
-          </div>
         </div>
       </div>
-
     </div>
   </section>
 
@@ -774,41 +817,41 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
 
         <div class="stack gap-16">
           <span class="eyebrow">Meses sin intereses</span>
-          <h2 class="h2">¿Me alcanza este MSI?</h2>
+          <h2 class="h2">¡Que no te agarren en curva!</h2>
           <p class="lead">
-            Antes de comprar a meses, ve si te alcanza y cuánto te queda hasta tu quincena.
-            Conoce tu deuda total en un solo lugar y nunca olvides un pago.
+            ¿Compras a 3, 6 o 12 meses? Registra tus créditos y evita atrasos. 
+            Ve cuántas mensualidades te faltan, conoce tu deuda total y recibe recordatorios antes de la fecha de pago.
           </p>
           <ul class="check-list" style="grid-template-columns:1fr">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios antes de cada fecha de pago</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Cuántas mensualidades te faltan</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Deuda total consolidada</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios (alertas en app)</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Filtro de MSI personales o en grupo</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Visualización de progreso de pago</li>
           </ul>
         </div>
 
         <div class="card card--pad-lg">
           <div class="msi-top">
             <div>
-              <div class="eyebrow">Compra a 6 meses</div>
-              <div class="msi-title">Refrigerador · Tienda departamental</div>
+              <div class="eyebrow">Pagos a meses · Personal</div>
+              <div class="msi-title">MacBook Pro</div>
             </div>
-            <span class="badge badge-solid">6 MSI</span>
+            <span class="badge badge-solid">18 MSI</span>
           </div>
 
-          <div class="msi-amount">$1,499.00 <span>/ mes</span></div>
-
-          <div class="dots" role="img" aria-label="2 de 6 mensualidades pagadas">
-            <i class="on"></i><i class="on"></i><i></i><i></i><i></i><i></i>
+          <div class="msi-amount">$2,388.89 <span>/ mes</span></div>
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
+            <div class="small" style="color:var(--color-ink); font-weight:500;">0 de 18 pagos</div>
+            <div class="small">Deuda: $43,000.00</div>
           </div>
 
-          <div class="msi-meta">
-            <span>Te faltan 4 mensualidades</span>
-            <span>Deuda total $5,996.00</span>
+          <div class="dots" role="img" aria-label="0 de 18 mensualidades pagadas">
+            <i></i><i></i><i></i><i></i><i></i><i></i>
           </div>
 
           <div class="msi-alert">
-            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>
-            Próximo pago: 15 de abril · recordatorio activo
+            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Próximo pago: 23 de febrero
           </div>
         </div>
 
@@ -826,9 +869,8 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
           <span class="eyebrow">Hecha en México</span>
           <h2 class="h2">Diseñada para mexicanos.</h2>
           <p class="lead">
-            En español, con pesos mexicanos y categorías que usamos aquí.
-            Ya sea que vivas solo, con roomies, en pareja o con tu familia,
-            te ayuda a tener tus finanzas en orden.
+            En español, con pesos mexicanos y categorías que usamos aquí: OXXO, tianguis, CFE, Telmex, despensa.
+            Ya sea que vivas solo, con roomies, en pareja o con tu familia, te ayuda a tener tus finanzas en orden.
           </p>
         </div>
         <div class="card">
@@ -864,12 +906,12 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
             Todo lo que ves aquí ya viene incluido.
           </p>
           <ul class="check-list">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Grupos ilimitados</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Gastos personales ilimitados</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Fotos de comprobantes</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Escaneo de tickets</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Control de meses sin intereses</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Presupuestos ilimitados</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Grupos y gastos ilimitados</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Fotos de comprobantes y escaneo IA</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios por WhatsApp</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Control de MSI y tarjetas</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Presupuestos y etiquetas</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Integración con Apple Pay</li>
           </ul>
         </div>
 
@@ -887,9 +929,9 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
 
           <ul class="price-list">
             <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Grupos y gastos personales ilimitados</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Comprobantes y escaneo de tickets</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> MSI, tarjetas y quincenas</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Reportes mensuales</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Escaneo de tickets, voz y etiquetas</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> MSI, tarjetas, préstamos y quincenas</li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Reportes mensuales y listas compartidas</li>
           </ul>
 
           <a href="#" class="btn btn-primary" style="width:100%">Crear mi cuenta gratis</a>
@@ -921,6 +963,14 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
 
         <details class="qa">
           <summary>
+            ¿Cómo funciona el recordatorio por WhatsApp?
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+          </summary>
+          <div class="answer">Si alguien del grupo te debe dinero, la app te da la opción de enviarle un mensaje automático y amigable vía WhatsApp para recordarle su parte de la cuenta, sin que tengas que escribir nada.</div>
+        </details>
+
+        <details class="qa">
+          <summary>
             ¿Cómo se divide una cuenta?
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
           </summary>
@@ -929,26 +979,18 @@ details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color
 
         <details class="qa">
           <summary>
-            ¿Mis gastos personales se mezclan con los del grupo?
+            ¿Cómo funciona el escaneo y el gasto por voz?
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
           </summary>
-          <div class="answer">No. Tu dinero personal está siempre separado de los gastos compartidos, aunque pertenezcas a uno o varios grupos al mismo tiempo.</div>
+          <div class="answer">Tomas la foto del ticket y la IA extrae el monto, el comercio y los artículos. Si prefieres, puedes dictarle a la app "Cena 500 pesos" y ella llenará el formulario por ti.</div>
         </details>
 
         <details class="qa">
           <summary>
-            ¿Cómo funciona el escaneo de tickets?
+            ¿Qué pasa si uso Apple Pay?
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
           </summary>
-          <div class="answer">Tomas la foto del ticket y la app lee el monto, el comercio y la categoría. Tú solo confirmas: el gasto queda registrado en segundos.</div>
-        </details>
-
-        <details class="qa">
-          <summary>
-            ¿Puedo llevar el control de mis meses sin intereses?
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="answer">Sí. Registras la compra a 3, 6 o 12 meses, ves cuántas mensualidades te faltan, tu deuda total y recibes recordatorios antes de cada fecha de pago.</div>
+          <div class="answer">La app cuenta con seguimiento automático. Cuando pagas con Apple Pay, te notifica para que con un solo toque registres el gasto en la categoría correspondiente.</div>
         </details>
       </div>
     </div>
