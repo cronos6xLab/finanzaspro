@@ -2,9 +2,8 @@
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cuenta Clara — Controla tus gastos personales y compartidos</title>
-<meta name="description" content="Controla tus gastos personales y compartidos en una sola app. Grupos ilimitados, escaneo de tickets, control de meses sin intereses. 100% gratis. Hecha en México.">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Cuenta Clara — Tu App de Finanzas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap" rel="stylesheet">
@@ -20,24 +19,15 @@
   --color-ink-soft:#171717;
   --color-mid-gray:#737373;
   --color-hairline:#e5e5e5;
-  --color-ember:#e7000b;
+  --color-ember:#e7000b; /* Solo para destructive/alerts */
 
-  --font-geist:'Geist','Inter',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --font-geist:'Geist','Inter',ui-sans-serif,system-ui,sans-serif;
 
   --text-caption:12px;   --leading-caption:1.33;   --tracking-caption:.6px;
   --text-body:14px;      --leading-body:1.43;
-  --text-body-lg:16px;   --leading-body-lg:1.5;
   --text-subheading:18px;--leading-subheading:1.56;
-  --text-heading-sm:24px;--leading-heading-sm:1.33;--tracking-heading-sm:-.6px;
-  --text-heading:30px;   --leading-heading:1.2;    --tracking-heading:-.75px;
-  --text-heading-lg:36px;--leading-heading-lg:1.11;--tracking-heading-lg:-.9px;
-  --text-display:48px;   --leading-display:1.1;    --tracking-display:-2.4px;
-
-  --spacing-4:4px; --spacing-8:8px; --spacing-12:12px; --spacing-16:16px;
-  --spacing-20:20px; --spacing-24:24px; --spacing-48:48px;
-
-  --radius-md:6px; --radius-lg:10px; --radius-xl:14px;
-  --radius-2xl:18px; --radius-3xl:24px;
+  --text-heading-sm:24px;--tracking-heading-sm:-.6px;
+  --text-heading:30px;   --tracking-heading:-.75px;
 
   --radius-cards:24px;
   --radius-buttons:18px;
@@ -45,1080 +35,883 @@
   --radius-badges:18px;
 
   --shadow-subtle:0 0 0 1px rgba(23,23,23,.05), 0 1px 3px rgba(0,0,0,.1), 0 1px 2px -1px rgba(0,0,0,.1);
-
-  --page-max-width:1280px;
-  --card-padding:20px;
 }
 
 /* ============================================================
    RESET / BASE
    ============================================================ */
 *,*::before,*::after{box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+html, body{height:100%; margin:0;}
 body{
-  margin:0;
   background:var(--color-canvas);
   color:var(--color-ink);
   font-family:var(--font-geist);
   font-size:var(--text-body);
   line-height:var(--leading-body);
-  font-feature-settings:"ss01" on,"cv11" on;
   -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  overflow:hidden; /* App layout */
 }
-::selection{background:var(--color-ink);color:var(--color-paper)}
 h1,h2,h3,h4,p,ul,ol,figure{margin:0}
 ul,ol{padding:0;list-style:none}
-img,svg{display:block}
-button{font-family:inherit}
-a{color:inherit;text-decoration:none}
-:focus-visible{outline:2px solid var(--color-ink);outline-offset:2px;border-radius:6px}
+button{font-family:inherit; cursor:pointer;}
+input,select{font-family:inherit;}
+:focus-visible{outline:2px solid var(--color-ink);outline-offset:2px;}
+.hidden{display:none !important;}
 
 /* ============================================================
-   LAYOUT HELPERS
+   LAYOUT APP
    ============================================================ */
-.container{width:100%;max-width:var(--page-max-width);margin:0 auto;padding:0 24px}
-.section{padding:80px 0}
-.section--tight{padding:56px 0}
-.stack{display:flex;flex-direction:column}
-.gap-8{gap:8px}.gap-12{gap:12px}.gap-16{gap:16px}.gap-24{gap:24px}
-.grid{display:grid;gap:16px}
-.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.g-4{grid-template-columns:repeat(4,minmax(0,1fr))}
-.muted{color:var(--color-mid-gray)}
+.app-container{
+  display:flex;
+  width:100%;
+  height:100%;
+}
+
+/* Sidebar (Desktop) */
+.sidebar{
+  width:260px;
+  background:var(--color-surface-alt);
+  border-right:1px solid var(--color-hairline);
+  display:flex;
+  flex-direction:column;
+  padding:24px 16px;
+  flex-shrink:0;
+}
+.brand{
+  display:flex; align-items:center; gap:10px; font-weight:600; font-size:16px; letter-spacing:-.02em;
+  padding:0 8px; margin-bottom:32px;
+}
+.mark{width:20px;height:20px;border-radius:6px;background:var(--color-ink);position:relative;}
+.mark::after{content:"";position:absolute;right:-3px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--color-ember);border:2px solid var(--color-surface-alt);}
+
+.nav-menu{display:flex; flex-direction:column; gap:4px;}
+.nav-item{
+  display:flex; align-items:center; gap:12px;
+  padding:10px 12px; border-radius:12px;
+  color:var(--color-mid-gray); font-weight:500; text-decoration:none;
+  transition:all 0.15s ease;
+}
+.nav-item:hover{background:var(--color-canvas); color:var(--color-ink);}
+.nav-item.active{background:var(--color-canvas); color:var(--color-ink); font-weight:600;}
+
+/* Main Content */
+.main-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+  padding-bottom:80px; /* Space for mobile nav */
+}
+.topbar{
+  position:sticky; top:0; z-index:10;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 24px;
+  background:rgba(245,245,245,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent;
+}
+.view-section{
+  padding:24px;
+  max-width:1000px;
+  margin:0 auto;
+  width:100%;
+  animation: fadeIn 0.2s ease-out;
+}
+@keyframes fadeIn { from{opacity:0; transform:translateY(5px);} to{opacity:1; transform:translateY(0);} }
+
+/* Mobile Nav */
+.mobile-nav{
+  display:none;
+  position:fixed; bottom:0; left:0; right:0;
+  background:var(--color-paper);
+  border-top:1px solid var(--color-hairline);
+  padding:12px 16px;
+  justify-content:space-around;
+  z-index:50;
+}
 
 /* ============================================================
-   TYPOGRAPHY
-   ============================================================ */
-.eyebrow{
-  font-size:var(--text-caption);
-  line-height:var(--leading-caption);
-  letter-spacing:var(--tracking-caption);
-  text-transform:uppercase;
-  color:var(--color-mid-gray);
-  font-weight:500;
-}
-.display{
-  font-size:clamp(32px,5.2vw,var(--text-display));
-  line-height:var(--leading-display);
-  letter-spacing:-.05em;
-  font-weight:600;
-  text-wrap:balance;
-}
-.h2{
-  font-size:clamp(26px,3.6vw,var(--text-heading-lg));
-  line-height:var(--leading-heading-lg);
-  letter-spacing:-.025em;
-  font-weight:600;
-  text-wrap:balance;
-}
-.h3{
-  font-size:var(--text-subheading);
-  line-height:var(--leading-subheading);
-  letter-spacing:-.01em;
-  font-weight:600;
-}
-.lead{
-  font-size:var(--text-body-lg);
-  line-height:var(--leading-body-lg);
-  color:var(--color-mid-gray);
-  text-wrap:pretty;
-}
-.small{font-size:13px;line-height:1.5;color:var(--color-mid-gray)}
-.section-head{display:flex;flex-direction:column;gap:12px;max-width:680px;margin-bottom:32px}
-.section-head--center{align-items:center;text-align:center;margin-inline:auto}
-
-/* ============================================================
-   BUTTONS
-   ============================================================ */
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  height:40px;padding:0 16px;
-  border:1px solid transparent;
-  border-radius:var(--radius-buttons);
-  font-size:var(--text-body);font-weight:500;line-height:1;
-  cursor:pointer;white-space:nowrap;
-  transition:background-color .15s ease,border-color .15s ease,color .15s ease,transform .15s ease;
-}
-.btn:active{transform:translateY(.5px)}
-.btn-primary{background:var(--color-ink);color:var(--color-surface-alt)}
-.btn-primary:hover{background:#000}
-.btn-ghost{background:var(--color-canvas);color:var(--color-ink)}
-.btn-ghost:hover{background:#ebebeb}
-.btn-outline{background:transparent;border-color:var(--color-hairline);color:var(--color-ink)}
-.btn-outline:hover{background:var(--color-paper)}
-.btn-sm{height:34px;padding:0 12px;font-size:13px}
-.btn-lg{height:46px;padding:0 22px;font-size:15px}
-.btn .icon{width:16px;height:16px}
-
-/* ============================================================
-   BADGES
-   ============================================================ */
-.badge{display:inline-flex;align-items:center;gap:6px;border-radius:var(--radius-badges);padding:3px 10px;font-size:var(--text-caption);font-weight:500;line-height:1.4;white-space:nowrap}
-.badge-solid{background:var(--color-ink-soft);color:var(--color-surface-alt)}
-.badge-soft{background:var(--color-canvas);color:var(--color-ink-soft)}
-.badge-outline{border:1px solid var(--color-hairline);color:var(--color-ink);background:transparent}
-.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--color-ember);flex:none}
-
-/* ============================================================
-   CARD
+   COMPONENTES UI
    ============================================================ */
 .card{
   background:var(--color-paper);
   border:1px solid var(--color-hairline);
   border-radius:var(--radius-cards);
   box-shadow:var(--shadow-subtle);
-  padding:var(--card-padding);
+  padding:20px;
 }
-.card--flat{box-shadow:none}
-.card--pad-lg{padding:28px}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  height:40px; padding:0 16px; border-radius:var(--radius-buttons);
+  font-size:var(--text-body); font-weight:500; border:1px solid transparent;
+  transition:all 0.15s ease; text-decoration:none;
+}
+.btn-primary{background:var(--color-ink); color:var(--color-paper);}
+.btn-primary:hover{background:#222;}
+.btn-ghost{background:var(--color-canvas); color:var(--color-ink);}
+.btn-ghost:hover{background:#ebebeb;}
+.btn-outline{background:transparent; border-color:var(--color-hairline); color:var(--color-ink);}
+.btn-outline:hover{background:var(--color-surface-alt);}
+.btn-sm{height:32px; padding:0 12px; font-size:13px;}
+.btn-icon{width:40px; height:40px; padding:0; display:flex; align-items:center; justify-content:center;}
 
-/* ============================================================
-   ICONS
-   ============================================================ */
-.icon{
-  width:20px;height:20px;flex:none;
-  fill:none;stroke:currentColor;stroke-width:1.6;
-  stroke-linecap:round;stroke-linejoin:round;
-}
-.icon-sm{width:16px;height:16px}
-.tile{
-  width:40px;height:40px;flex:none;
-  display:grid;place-items:center;
-  border-radius:var(--radius-xl);
-  background:var(--color-canvas);
-  border:1px solid var(--color-hairline);
-  color:var(--color-ink);
-}
+.badge{display:inline-flex; align-items:center; padding:2px 8px; border-radius:var(--radius-badges); font-size:12px; font-weight:500;}
+.badge-soft{background:var(--color-canvas); color:var(--color-ink-soft);}
+.badge-ember{background:#fee2e2; color:var(--color-ember);}
 
-/* ============================================================
-   NAV
-   ============================================================ */
-.nav{
-  position:sticky;top:0;z-index:50;
-  background:rgba(245,245,245,.82);
-  backdrop-filter:saturate(180%) blur(14px);
-  -webkit-backdrop-filter:saturate(180%) blur(14px);
-  border-bottom:1px solid var(--color-hairline);
-}
-.nav-inner{display:flex;align-items:center;gap:24px;height:64px}
-.brand{display:inline-flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.02em}
-.mark{
-  position:relative;width:20px;height:20px;border-radius:6px;
-  background:var(--color-ink);flex:none;
-}
-.mark::after{
-  content:"";position:absolute;right:-3px;top:-3px;
-  width:8px;height:8px;border-radius:50%;
-  background:var(--color-ember);
-  border:2px solid var(--color-canvas);
-}
-.nav-links{display:flex;align-items:center;gap:24px;margin-left:8px}
-.nav-links a{font-size:var(--text-body);color:var(--color-mid-gray);transition:color .15s ease}
-.nav-links a:hover{color:var(--color-ink)}
-.nav-actions{display:flex;align-items:center;gap:8px;margin-left:auto}
-
-/* ============================================================
-   HERO
-   ============================================================ */
-.hero{padding:72px 0 64px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
-.hero-copy{display:flex;flex-direction:column;gap:20px;align-items:flex-start}
-.hero-cta{display:flex;flex-wrap:wrap;gap:8px}
-.hero-points{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:4px}
-.hero-points li{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--color-mid-gray)}
-.hero-points .icon{color:var(--color-ink)}
-
-/* ============================================================
-   DEMO CARD (split)
-   ============================================================ */
-.demo{display:flex;flex-direction:column;gap:16px}
-.demo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.demo-title{font-size:var(--text-subheading);font-weight:600;letter-spacing:-.02em;margin-top:2px}
-.field{display:flex;flex-direction:column;gap:6px;min-width:0}
-.field label{font-size:var(--text-caption);letter-spacing:var(--tracking-caption);text-transform:uppercase;color:var(--color-mid-gray);font-weight:500}
+.field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+.field label{font-size:12px; text-transform:uppercase; letter-spacing:0.5px; color:var(--color-mid-gray); font-weight:600;}
 .control{
-  height:40px;width:100%;
-  display:flex;align-items:center;gap:6px;
-  padding:0 12px;
-  background:var(--color-canvas);
-  border:1px solid transparent;
-  border-radius:var(--radius-inputs);
-  font-size:var(--text-body);font-weight:500;color:var(--color-ink);
-  transition:border-color .15s ease,background-color .15s ease;
+  height:44px; width:100%; display:flex; align-items:center; padding:0 12px;
+  background:var(--color-canvas); border:1px solid transparent; border-radius:var(--radius-inputs);
+  font-size:14px; transition:border 0.15s ease;
 }
-.control:focus-within{border-color:var(--color-hairline);background:var(--color-paper)}
-.control input,.control select{
-  border:0;background:transparent;outline:none;width:100%;
-  font:inherit;color:inherit;appearance:none;
-  font-variant-numeric:tabular-nums;
-}
-.control select{cursor:pointer}
-.control .prefix{color:var(--color-mid-gray);font-weight:500}
-.row-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.split-list{display:flex;flex-direction:column}
-.split-row{
-  display:grid;grid-template-columns:26px 1fr auto auto;
-  align-items:center;gap:10px;
-  padding:9px 0;
-  border-top:1px solid var(--color-hairline);
-}
-.split-row:first-child{border-top:0}
-.avatar{
-  width:26px;height:26px;border-radius:50%;
-  display:grid;place-items:center;
-  background:var(--color-canvas);
-  border:1px solid var(--color-hairline);
-  font-size:11px;font-weight:600;color:var(--color-ink-soft);
-}
-.split-name{font-size:var(--text-body);font-weight:500}
-.split-pct{font-size:12px;color:var(--color-mid-gray);font-variant-numeric:tabular-nums}
-.split-amt{font-size:var(--text-body);font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.demo-foot{
-  display:flex;align-items:center;justify-content:space-between;gap:12px;
-  border-top:1px solid var(--color-hairline);
-  padding-top:14px;
-}
-.demo-foot .total{font-size:var(--text-subheading);font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.demo-note{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--color-mid-gray)}
-.demo-caption{margin-top:12px;font-size:12px;color:var(--color-mid-gray);text-align:center}
+.control:focus-within{border-color:var(--color-hairline); background:var(--color-paper);}
+.control input, .control select{border:0; background:transparent; outline:none; width:100%; font-size:14px;}
+.control .prefix{color:var(--color-mid-gray); margin-right:4px;}
+
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+.flex-between{display:flex; justify-content:space-between; align-items:center;}
+.flex-center{display:flex; align-items:center; gap:8px;}
+
+/* Iconos */
+.icon{width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;}
+.icon-sm{width:16px; height:16px;}
 
 /* ============================================================
-   FEATURE CARDS
+   VISTAS ESPECÍFICAS
    ============================================================ */
-.feature{display:flex;flex-direction:column;gap:12px;transition:border-color .15s ease,transform .15s ease}
-.feature:hover{border-color:#d4d4d4}
-.feature h3{font-size:var(--text-body-lg);font-weight:600;letter-spacing:-.01em}
-.feature p{font-size:var(--text-body);color:var(--color-mid-gray);line-height:1.5}
-.feature .tag-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:4px}
+/* Dashboard */
+.stat-value{font-size:32px; font-weight:600; letter-spacing:-.03em; margin:8px 0;}
+.progress-bar{height:8px; background:var(--color-canvas); border-radius:99px; overflow:hidden; margin-top:8px;}
+.progress-fill{height:100%; background:var(--color-ink); border-radius:99px;}
 
-/* ============================================================
-   STATS CARD (gastos personales)
-   ============================================================ */
-.stat-value{font-size:clamp(28px,4vw,36px);font-weight:600;letter-spacing:-.025em;line-height:1.11;font-variant-numeric:tabular-nums}
-.bar-track{height:8px;border-radius:99px;background:var(--color-canvas);overflow:hidden;margin-top:12px}
-.bar-fill{height:100%;border-radius:99px;background:var(--color-ink-soft)}
-.cat-list{display:flex;flex-direction:column;gap:14px;margin-top:20px}
-.cat-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;font-size:13px}
-.cat-top .name{color:var(--color-ink-soft);font-weight:500}
-.cat-top .amt{color:var(--color-mid-gray);font-variant-numeric:tabular-nums}
-.cat-track{height:6px;border-radius:99px;background:var(--color-canvas);overflow:hidden;margin-top:6px}
-.cat-track > i{display:block;height:100%;border-radius:99px;background:var(--color-ink-soft)}
+/* Quick Actions */
+.quick-actions{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;}
+.action-btn{
+  display:flex; flex-direction:column; align-items:flex-start; gap:8px;
+  padding:16px; border-radius:16px; background:var(--color-paper); border:1px solid var(--color-hairline);
+  text-align:left; transition:border 0.15s ease;
+}
+.action-btn:hover{border-color:var(--color-mid-gray);}
+.action-btn strong{font-size:14px;}
+.action-btn span{font-size:12px; color:var(--color-mid-gray);}
 
-/* ============================================================
-   UI MOCKUPS (Nuevas funciones)
-   ============================================================ */
-.mockup-box{
-  background:var(--color-canvas);
-  border:1px solid var(--color-hairline);
-  border-radius:var(--radius-xl);
-  padding:12px;
-  margin-top:8px;
+/* Listas */
+.list-item{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:12px 0; border-bottom:1px solid var(--color-hairline);
 }
-.mockup-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--color-hairline);}
-.mockup-row:last-child{border-bottom:none;padding-bottom:0;}
-.mockup-row:first-child{padding-top:0;}
-.mockup-icon{
-  width:28px;height:28px;border-radius:8px;background:var(--color-paper);border:1px solid var(--color-hairline);display:grid;place-items:center;flex:none;
-}
-.mockup-text{display:flex;flex-direction:column;gap:2px;flex:1;}
-.mockup-text strong{font-size:13px;font-weight:500;}
-.mockup-text span{font-size:11px;color:var(--color-mid-gray);}
-.mockup-amt{font-size:13px;font-weight:600;font-variant-numeric:tabular-nums;}
+.list-item:last-child{border-bottom:none;}
+.item-info{display:flex; flex-direction:column; gap:2px;}
+.item-title{font-weight:500;}
+.item-sub{font-size:12px; color:var(--color-mid-gray);}
+.item-amt{font-weight:600; font-variant-numeric:tabular-nums;}
 
-.tag-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
-.tag-pill{background:var(--color-paper);border:1px solid var(--color-hairline);color:var(--color-ink-soft);padding:4px 10px;border-radius:99px;font-size:11px;font-weight:500;display:inline-flex;align-items:center;gap:4px;}
-.tag-pill.active{background:var(--color-ink);color:var(--color-paper);border-color:var(--color-ink);}
+/* Modals */
+.modal-overlay{
+  position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.4);
+  display:flex; align-items:center; justify-content:center; z-index:100; padding:16px;
+}
+.modal-content{
+  background:var(--color-paper); width:100%; max-width:440px; border-radius:24px;
+  padding:24px; box-shadow:0 10px 40px rgba(0,0,0,0.2); position:relative;
+  max-height:90vh; overflow-y:auto;
+}
+.modal-close{
+  position:absolute; top:16px; right:16px; background:var(--color-canvas); border:none;
+  width:32px; height:32px; border-radius:50%; display:grid; place-items:center; color:var(--color-mid-gray);
+}
 
-/* ============================================================
-   MSI CARD
-   ============================================================ */
-.msi-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.msi-title{font-size:var(--text-body-lg);font-weight:600;letter-spacing:-.01em;margin-top:2px}
-.msi-amount{font-size:clamp(26px,3.4vw,var(--text-heading));font-weight:600;letter-spacing:-.03em;line-height:1.2;margin-top:16px;font-variant-numeric:tabular-nums}
-.msi-amount span{font-size:var(--text-body);font-weight:400;color:var(--color-mid-gray);letter-spacing:0}
-.dots{display:flex;gap:6px;margin-top:16px;flex-wrap:wrap}
-.dots i{width:100%;max-width:34px;height:8px;border-radius:99px;background:var(--color-canvas);flex:1;min-width:16px}
-.dots i.on{background:var(--color-ink-soft)}
-.msi-meta{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:var(--color-mid-gray);margin-top:10px}
-.msi-alert{
-  display:flex;align-items:center;gap:8px;
-  margin-top:16px;padding:10px 12px;
-  background:var(--color-surface-alt);
-  border:1px solid var(--color-hairline);
-  border-radius:var(--radius-xl);
-  font-size:13px;color:var(--color-ink-soft);
-}
-.msi-alert .icon{color:var(--color-ember)}
-
-/* ============================================================
-   BAND / MÉXICO
-   ============================================================ */
-.band{
-  background:var(--color-paper);
-  border-top:1px solid var(--color-hairline);
-  border-bottom:1px solid var(--color-hairline);
-}
-.chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:6px 12px;
-  border:1px solid var(--color-hairline);
-  border-radius:var(--radius-badges);
-  background:var(--color-surface-alt);
-  font-size:13px;font-weight:500;color:var(--color-ink-soft);
-}
-.chip .icon{width:14px;height:14px;color:var(--color-mid-gray)}
-
-/* ============================================================
-   FREE / PRICING
-   ============================================================ */
-.free-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:center}
-.check-list{display:grid;grid-template-columns:1fr 1fr;gap:12px 24px}
-.check-list li{display:flex;align-items:flex-start;gap:10px;font-size:var(--text-body);color:var(--color-ink-soft)}
-.check-list .icon{width:18px;height:18px;color:var(--color-ink);margin-top:1px}
-.price-card{display:flex;flex-direction:column;gap:20px;padding:28px}
-.price-tag{display:flex;align-items:flex-end;gap:8px}
-.price-tag .amount{font-size:clamp(36px,5vw,48px);line-height:1.05;letter-spacing:-.05em;font-weight:600}
-.price-tag .unit{font-size:var(--text-body);color:var(--color-mid-gray);padding-bottom:8px}
-.price-rule{height:1px;background:var(--color-hairline);margin:0}
-.price-list{display:flex;flex-direction:column;gap:10px}
-.price-list li{display:flex;align-items:center;gap:10px;font-size:var(--text-body);color:var(--color-ink-soft)}
-.price-list .icon{width:16px;height:16px;color:var(--color-mid-gray)}
-
-/* ============================================================
-   FAQ
-   ============================================================ */
-.faq{display:flex;flex-direction:column;gap:12px;max-width:820px;margin:0 auto}
-details.qa{
-  background:var(--color-paper);
-  border:1px solid var(--color-hairline);
-  border-radius:var(--radius-cards);
-  box-shadow:var(--shadow-subtle);
-  padding:0 20px;
-  overflow:hidden;
-}
-details.qa summary{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:18px 0;cursor:pointer;list-style:none;
-  font-size:var(--text-body-lg);font-weight:500;letter-spacing:-.01em;
-}
-details.qa summary::-webkit-details-marker{display:none}
-details.qa summary .icon{color:var(--color-mid-gray);transition:transform .18s ease;flex:none}
-details.qa[open] summary .icon{transform:rotate(45deg)}
-details.qa .answer{padding:0 0 18px;font-size:var(--text-body);color:var(--color-mid-gray);line-height:1.6;max-width:64ch}
-
-/* ============================================================
-   FINAL CTA
-   ============================================================ */
-.cta-card{
-  display:flex;flex-direction:column;align-items:center;text-align:center;gap:20px;
-  padding:56px 28px;
-  background:var(--color-paper);
-  border:1px solid var(--color-hairline);
-  border-radius:var(--radius-cards);
-  box-shadow:var(--shadow-subtle);
-}
-.cta-card .display{font-size:clamp(28px,4.4vw,44px);letter-spacing:-.045em;max-width:18ch}
-
-/* ============================================================
-   FOOTER
-   ============================================================ */
-.footer{background:var(--color-surface-alt);border-top:1px solid var(--color-hairline);padding:56px 0 32px;margin-top:0}
-.footer-grid{display:grid;grid-template-columns:1.6fr repeat(3,1fr);gap:32px}
-.footer h4{font-size:var(--text-caption);letter-spacing:var(--tracking-caption);text-transform:uppercase;color:var(--color-mid-gray);font-weight:500;margin-bottom:12px}
-.footer ul{display:flex;flex-direction:column;gap:8px}
-.footer ul a{font-size:var(--text-body);color:var(--color-ink-soft)}
-.footer ul a:hover{color:var(--color-mid-gray)}
-.footer-bottom{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
-  margin-top:40px;padding-top:20px;
-  border-top:1px solid var(--color-hairline);
-  font-size:12px;color:var(--color-mid-gray);
-}
+/* Tags */
+.tag{display:inline-flex; background:var(--color-canvas); color:var(--color-ink-soft); padding:2px 8px; border-radius:12px; font-size:11px; font-weight:500; margin-right:4px;}
 
 /* ============================================================
    RESPONSIVE
    ============================================================ */
-@media (max-width:1024px){
-  .hero-grid{grid-template-columns:1fr;gap:40px}
-  .free-grid{grid-template-columns:1fr;gap:32px}
-  .g-4{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .g-3{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .footer-grid{grid-template-columns:1fr 1fr}
-}
-@media (max-width:768px){
-  .section{padding:56px 0}
-  .hero{padding:48px 0}
-  .nav-links{display:none}
-  .g-2,.g-3,.g-4{grid-template-columns:1fr}
-  .check-list{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr}
-  .cta-card{padding:40px 20px}
-  .card--pad-lg{padding:20px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+@media (max-width: 768px) {
+  .sidebar{display:none;}
+  .mobile-nav{display:flex;}
+  .view-section{padding:16px;}
+  .grid-2{grid-template-columns:1fr;}
+  .topbar{padding:12px 16px;}
+  .quick-actions{grid-template-columns:1fr;}
 }
 </style>
 </head>
 <body>
 
-<!-- ============================================================
-     NAV
-     ============================================================ -->
-<header class="nav">
-  <div class="container nav-inner">
-    <a href="#" class="brand"><span class="mark" aria-hidden="true"></span> Cuenta Clara</a>
-    <nav class="nav-links" aria-label="Navegación principal">
-      <a href="#compartidos">Compartidos</a>
-      <a href="#personal">Personal</a>
-      <a href="#nuevas-funciones">Funciones</a>
-      <a href="#gratis">Gratis</a>
+<div class="app-container">
+  
+  <!-- SIDEBAR (Desktop) -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="mark"></span> Cuenta Clara
+    </div>
+    <nav class="nav-menu">
+      <a href="#" class="nav-item active" onclick="App.navigate('dashboard', this)">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Inicio
+      </a>
+      <a href="#" class="nav-item" onclick="App.navigate('personal', this)">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+        Gastos Personales
+      </a>
+      <a href="#" class="nav-item" onclick="App.navigate('groups', this)">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Grupos y Compartidos
+      </a>
+      <a href="#" class="nav-item" onclick="App.navigate('msi', this)">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg>
+        Meses sin Intereses
+      </a>
     </nav>
-    <div class="nav-actions">
-      <a href="#" class="btn btn-ghost btn-sm">Entrar</a>
-      <a href="#gratis" class="btn btn-primary btn-sm">Empezar gratis</a>
-    </div>
-  </div>
-</header>
+  </aside>
 
-<main>
-
-  <!-- ============================================================
-       HERO
-       ============================================================ -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero-grid">
-
-        <div class="hero-copy">
-          <span class="badge badge-outline"><span class="dot" aria-hidden="true"></span> 100% gratis · Hecha en México</span>
-
-          <h1 class="display">¡Que se mochten! Controla tus gastos personales y compartidos.</h1>
-
-          <p class="lead">
-            Crea grupos para cada plan (roomies, pareja, viajes). Divide cuentas, escanea tickets con IA, 
-            dicta tus gastos por voz y no te dejes trancear con los pagos.
-          </p>
-
-          <div class="hero-cta">
-            <a href="#gratis" class="btn btn-primary btn-lg">
-              Empezar gratis
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-            </a>
-            <a href="#nuevas-funciones" class="btn btn-ghost btn-lg">Ver funciones</a>
-          </div>
-
-          <ul class="hero-points">
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Gasto por voz</li>
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Escaneo con IA</li>
-            <li><svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios WhatsApp</li>
-          </ul>
-        </div>
-
-        <!-- Demo interactiva -->
-        <div>
-          <div class="card demo">
-            <div class="demo-head">
-              <div>
-                <div class="eyebrow">Demo · División de gasto</div>
-                <div class="demo-title">Cena en el tianguis</div>
-              </div>
-              <span class="badge badge-soft">Gratis</span>
-            </div>
-
-            <div class="field">
-              <label for="monto">Monto total</label>
-              <div class="control">
-                <span class="prefix">$</span>
-                <input id="monto" type="number" min="0" step="50" value="1200" inputmode="decimal" aria-label="Monto total">
-              </div>
-            </div>
-
-            <div class="row-2">
-              <div class="field">
-                <label for="personas">Personas</label>
-                <div class="control">
-                  <select id="personas" aria-label="Número de personas">
-                    <option value="2">2 personas</option>
-                    <option value="3" selected>3 personas</option>
-                    <option value="4">4 personas</option>
-                    <option value="5">5 personas</option>
-                  </select>
-                </div>
-              </div>
-              <div class="field">
-                <label for="modo">Modo</label>
-                <div class="control">
-                  <select id="modo" aria-label="Modo de división">
-                    <option value="iguales" selected>Partes iguales</option>
-                    <option value="pct">Por porcentaje</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="split-list" id="splitList" aria-live="polite"></div>
-
-            <div class="demo-foot">
-              <span class="demo-note">
-                <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg>
-                Cálculo automático
-              </span>
-              <span class="total" id="demoTotal">$1,200.00</span>
-            </div>
-          </div>
-          <p class="demo-caption">La app calcula automáticamente quién debe a quién.</p>
-        </div>
-
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <header class="topbar">
+      <div class="flex-center">
+        <span class="badge badge-soft">100% Gratis</span>
       </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       GASTOS COMPARTIDOS
-       ============================================================ -->
-  <section class="section" id="compartidos">
-    <div class="container">
-      <div class="section-head">
-        <span class="eyebrow">Gastos compartidos · Gratis</span>
-        <h2 class="h2">¡Que nadie se haga rosca! Crea grupos para cada plan.</h2>
-        <p class="lead">Roomies, pareja, familia, amigos o viajes. Divide en partes iguales, por porcentaje o montos exactos. Y si alguien no paga, mándale recordatorio directo a su WhatsApp.</p>
+      <div class="flex-center">
+        <button class="btn btn-outline btn-icon" aria-label="Perfil">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </button>
       </div>
+    </header>
 
-      <div class="grid g-4">
+    <!-- VISTA: DASHBOARD -->
+    <section id="view-dashboard" class="view-section">
+      <h1 style="font-size:28px; letter-spacing:-.03em; font-weight:600; margin-bottom:4px;">Hola, Azel 👋</h1>
+      <p style="color:var(--color-mid-gray); margin-bottom:24px;">Este es tu resumen financiero de hoy.</p>
 
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>
+      <div class="grid-2" style="margin-bottom:24px;">
+        <div class="card">
+          <div class="flex-between">
+            <span style="font-size:12px; font-weight:600; color:var(--color-mid-gray); text-transform:uppercase; letter-spacing:0.5px;">Gastos Personales (Mes)</span>
+            <span class="badge badge-soft">Presupuesto $4k</span>
           </div>
-          <h3>Roomies / Familia</h3>
-          <p>Renta, servicios (CFE, Telmex) y despensa divididos sin discusiones cada quincena.</p>
-          <div class="tag-row">
-            <span class="badge badge-soft">Renta</span>
-            <span class="badge badge-soft">Luz</span>
-            <span class="badge badge-soft">Despensa</span>
-          </div>
-        </article>
-
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-9a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 4.6-7 9-7 9Z"/></svg>
-          </div>
-          <h3>Pareja</h3>
-          <p>Gastos del hogar, salidas y compras. Cada quien ve lo suyo, en claro.</p>
-          <div class="tag-row">
-            <span class="badge badge-soft">Súper</span>
-            <span class="badge badge-soft">Salidas</span>
-            <span class="badge badge-soft">Hogar</span>
-          </div>
-        </article>
-
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="9" width="18" height="12" rx="2.5"/><path d="M3 13.5h18M12 9v12"/><path d="M12 9S9.2 9 8.2 8.1a2 2 0 1 1 3.8-1.6 2 2 0 1 1 3.8 1.6C14.8 9 12 9 12 9Z"/></svg>
-          </div>
-          <h3>Amigos / Eventos</h3>
-          <p>¿Carnita asada? ¿Viaje a Cancún? Crea grupos temporales y lleva el control de todo.</p>
-          <div class="tag-row">
-            <span class="badge badge-soft">Viajes</span>
-            <span class="badge badge-soft">Fiestas</span>
-            <span class="badge badge-soft">Regalos</span>
-          </div>
-        </article>
-
-        <article class="card feature">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l1.5-4.5a8.5 8.5 0 1 1 16.5-5Z"/><path d="M8 10h.01M12 10h.01M16 10h.01"/></svg>
-          </div>
-          <h3>Recordatorios WhatsApp</h3>
-          <p>Revisa quién te debe y recuérdales mediante notificaciones push o un mensaje directo por WhatsApp.</p>
-          <div class="tag-row">
-            <span class="badge badge-soft">Cobros fáciles</span>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       GASTOS PERSONALES (¿Lobo solitario?)
-       ============================================================ -->
-  <section class="section section--tight" id="personal">
-    <div class="container">
-      <div class="hero-grid">
-
-        <div class="stack gap-16">
-          <span class="eyebrow">Gastos personales · Gratis</span>
-          <h2 class="h2">¿Lobo solitario? Tu dinero personal, separado de los gastos compartidos.</h2>
-          <p class="lead">
-            Registra y controla tus gastos individuales aunque pertenezcas a grupos. 
-            Visualiza en qué gastas con estadísticas por categoría, presupuestos y listas privadas.
-          </p>
-          <ul class="check-list" style="grid-template-columns:1fr">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Múltiples listas compartidas o privadas</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Seguimiento automático de compras con Apple Pay</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Vista Simple o Avanzada según lo que necesites</li>
-          </ul>
-        </div>
-
-        <div class="card card--pad-lg">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <div class="eyebrow">Gastos este mes</div>
-              <div class="stat-value" style="margin-top:6px">$580.00</div>
-            </div>
-            <span class="badge badge-outline">Personal</span>
-          </div>
-          
-          <div class="small" style="margin-top:8px">Presupuesto mensual de $4,000.00</div>
-          <div class="bar-track" role="img" aria-label="14% del presupuesto utilizado">
-            <div class="bar-fill" style="width:14%"></div>
-          </div>
-
-          <div class="mockup-box">
-            <div class="mockup-row">
-              <div class="mockup-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-              <div class="mockup-text">
-                <strong>Pagos a meses</strong>
-                <span>MacBook - $2,388.89 / mes</span>
-              </div>
-              <span class="badge badge-soft" style="font-size:10px">18 meses</span>
-            </div>
-            <div class="mockup-row">
-              <div class="mockup-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-              <div class="mockup-text">
-                <strong>Crear presupuestos</strong>
-                <span>Visualiza y controla por categoría</span>
-              </div>
-            </div>
-            <div class="mockup-row">
-              <div class="mockup-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-              <div class="mockup-text">
-                <strong>Pagos programados</strong>
-                <span>Agenda pagos futuros</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       NUEVAS FUNCIONES (Escaneo, Voz, Etiquetas, Recurrentes)
-       ============================================================ -->
-  <section class="section" id="nuevas-funciones">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <span class="eyebrow">Tecnología a tu favor</span>
-        <h2 class="h2">Más vale prevenir que lamentar.</h2>
-        <p class="lead">Registra tus gastos al momento. Escanea el ticket, dicta por voz o automatiza tus suscripciones.</p>
-      </div>
-
-      <div class="grid g-2" style="gap: 24px;">
-        
-        <!-- Escaneo IA -->
-        <article class="card card--pad-lg feature" style="gap: 20px;">
-          <div class="tile">
-            <svg class="icon" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M3 12h18"/></svg>
-          </div>
-          <div>
-            <h3>Escaneo inteligente con IA</h3>
-            <p>La app lee tu ticket automáticamente, detecta los artículos y extrae monto, comercio y categoría.</p>
-          </div>
-          <div class="mockup-box" style="background:var(--color-surface-alt);">
-            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:12px; font-weight:500;">
-              <span>Confianza</span>
-              <span>90%</span>
-            </div>
-            <div class="bar-track" style="margin-top:0; height:4px;"><div class="bar-fill" style="width:90%"></div></div>
-            
-            <div class="mockup-row" style="margin-top:12px;">
-              <div class="mockup-icon">💵</div>
-              <div class="mockup-text"><strong>Monto</strong><span>$580.00</span></div>
-            </div>
-            <div class="mockup-row">
-              <div class="mockup-icon">🏪</div>
-              <div class="mockup-text"><strong>Comercio</strong><span>PIZZA LA MONA</span></div>
-            </div>
-            <div class="mockup-row">
-              <div class="mockup-icon">🍕</div>
-              <div class="mockup-text"><strong>Categoría</strong><span>Comida</span></div>
-            </div>
-            
-            <div style="margin-top:10px; font-size:10px; color:var(--color-mid-gray); text-transform:uppercase; letter-spacing:0.5px;">Artículos detectados</div>
-            <div style="font-size:11px; display:flex; flex-direction:column; gap:4px; margin-top:6px;">
-              <div style="display:flex; justify-content:space-between;"><span>PIZZA CARNES</span><span>$285.00</span></div>
-              <div style="display:flex; justify-content:space-between;"><span>TAPAS DE LA CASA</span><span>$185.00</span></div>
-            </div>
-          </div>
-        </article>
-
-        <!-- Gasto por Voz y Etiquetas -->
-        <div class="stack gap-16">
-          
-          <article class="card feature" style="flex:1;">
-            <div class="tile">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg>
-            </div>
-            <h3>Gasto por Voz</h3>
-            <p>Dicta tu gasto (ej. "Taxi a la oficina 80 pesos") y la app autocompleta el formulario por ti.</p>
-          </article>
-
-          <article class="card feature" style="flex:1;">
-            <div class="tile">
-              <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16 12-4-4-4 4M12 8v8"/></svg>
-            </div>
-            <h3>Buscar con Etiquetas</h3>
-            <p>Etiqueta tus gastos (ej. <strong>#cine</strong>, <strong>#viaje</strong>) y encuéntralos al instante.</p>
-            <div class="tag-list">
-              <span class="tag-pill active">#cine</span>
-              <span class="tag-pill">#viaje</span>
-              <span class="tag-pill">#súper</span>
-            </div>
-          </article>
-
-          <article class="card feature" style="flex:1;">
-            <div class="tile">
-              <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
-            </div>
-            <h3>Transacciones Recurrentes</h3>
-            <p>Crea gastos fijos para no olvidar nada.</p>
-            <div class="mockup-box" style="padding:8px 12px; margin-top:4px;">
-              <div class="mockup-row" style="padding:6px 0;">
-                <span style="font-size:14px; margin-right:4px;">🏋️</span>
-                <div class="mockup-text"><strong>Gimnasio</strong></div>
-                <span class="mockup-amt">$39.00</span>
-              </div>
-              <div class="mockup-row" style="padding:6px 0;">
-                <span style="font-size:14px; margin-right:4px;">🎬</span>
-                <div class="mockup-text"><strong>Netflix</strong></div>
-                <span class="mockup-amt">$14.99</span>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       MSI DETALLE
-       ============================================================ -->
-  <section class="section section--tight" id="msi">
-    <div class="container">
-      <div class="hero-grid">
-
-        <div class="stack gap-16">
-          <span class="eyebrow">Meses sin intereses</span>
-          <h2 class="h2">¡Que no te agarren en curva!</h2>
-          <p class="lead">
-            ¿Compras a 3, 6 o 12 meses? Registra tus créditos y evita atrasos. 
-            Ve cuántas mensualidades te faltan, conoce tu deuda total y recibe recordatorios antes de la fecha de pago.
-          </p>
-          <ul class="check-list" style="grid-template-columns:1fr">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios (alertas en app)</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Filtro de MSI personales o en grupo</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Visualización de progreso de pago</li>
-          </ul>
-        </div>
-
-        <div class="card card--pad-lg">
-          <div class="msi-top">
-            <div>
-              <div class="eyebrow">Pagos a meses · Personal</div>
-              <div class="msi-title">MacBook Pro</div>
-            </div>
-            <span class="badge badge-solid">18 MSI</span>
-          </div>
-
-          <div class="msi-amount">$2,388.89 <span>/ mes</span></div>
-          
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px;">
-            <div class="small" style="color:var(--color-ink); font-weight:500;">0 de 18 pagos</div>
-            <div class="small">Deuda: $43,000.00</div>
-          </div>
-
-          <div class="dots" role="img" aria-label="0 de 18 mensualidades pagadas">
-            <i></i><i></i><i></i><i></i><i></i><i></i>
-          </div>
-
-          <div class="msi-alert">
-            <svg class="icon icon-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-            Próximo pago: 23 de febrero
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       HECHA EN MÉXICO
-       ============================================================ -->
-  <section class="band section section--tight">
-    <div class="container">
-      <div class="hero-grid" style="align-items:center">
-        <div class="stack gap-16">
-          <span class="eyebrow">Hecha en México</span>
-          <h2 class="h2">Diseñada para mexicanos.</h2>
-          <p class="lead">
-            En español, con pesos mexicanos y categorías que usamos aquí: OXXO, tianguis, CFE, Telmex, despensa.
-            Ya sea que vivas solo, con roomies, en pareja o con tu familia, te ayuda a tener tus finanzas en orden.
-          </p>
+          <div class="stat-value" id="dash-personal-total">$0.00</div>
+          <div class="progress-bar"><div class="progress-fill" id="dash-personal-bar" style="width:0%"></div></div>
         </div>
         <div class="card">
-          <div class="eyebrow" style="margin-bottom:12px">Categorías que ya conoces</div>
-          <div class="chips">
-            <span class="chip">OXXO</span>
-            <span class="chip">Tianguis</span>
-            <span class="chip">CFE</span>
-            <span class="chip">Telmex</span>
-            <span class="chip">Despensa</span>
-            <span class="chip">Gasolina</span>
-            <span class="chip">Farmacia</span>
-            <span class="chip">Renta</span>
-            <span class="chip">Quincena</span>
+          <div class="flex-between">
+            <span style="font-size:12px; font-weight:600; color:var(--color-mid-gray); text-transform:uppercase; letter-spacing:0.5px;">Deuda en MSI</span>
           </div>
+          <div class="stat-value" id="dash-msi-total">$0.00</div>
+          <p style="font-size:12px; color:var(--color-mid-gray);" id="dash-msi-count">0 compras activas</p>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ============================================================
-       100% GRATIS
-       ============================================================ -->
-  <section class="section" id="gratis">
-    <div class="container">
-      <div class="free-grid">
+      <h2 style="font-size:20px; font-weight:600; margin-bottom:16px;">Acciones rápidas</h2>
+      <div class="quick-actions">
+        <button class="action-btn" onclick="App.openModal('modal-scan')">
+          <div class="flex-center"><svg class="icon" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M3 12h18"/></svg></div>
+          <strong>Escanear Ticket</strong>
+          <span>Autocompleta con IA</span>
+        </button>
+        <button class="action-btn" onclick="App.openModal('modal-voice')">
+          <div class="flex-center" style="color:var(--color-ember);"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div>
+          <strong>Gasto por Voz</strong>
+          <span>Dicta y listo</span>
+        </button>
+      </div>
 
-        <div class="stack gap-16">
-          <span class="eyebrow">Precio</span>
-          <h2 class="h2">100% gratis. En serio.</h2>
-          <p class="lead">
-            Sin suscripción, sin anuncios que estorben, sin funciones bloqueadas.
-            Todo lo que ves aquí ya viene incluido.
-          </p>
-          <ul class="check-list">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Grupos y gastos ilimitados</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Fotos de comprobantes y escaneo IA</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Recordatorios por WhatsApp</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Control de MSI y tarjetas</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Presupuestos y etiquetas</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Integración con Apple Pay</li>
-          </ul>
-        </div>
+      <h2 style="font-size:20px; font-weight:600; margin:24px 0 16px;">Grupos activos</h2>
+      <div class="card" id="dash-groups-list" style="padding:0 20px;">
+        <!-- Renderizado por JS -->
+      </div>
+    </section>
 
-        <div class="card price-card">
-          <div class="stack gap-8">
-            <span class="badge badge-soft" style="align-self:flex-start">Plan único</span>
-            <div class="price-tag">
-              <span class="amount">$0</span>
-              <span class="unit">MXN / siempre</span>
-            </div>
-            <p class="small">Todo incluido para siempre. Hecha en México.</p>
+    <!-- VISTA: GASTOS PERSONALES -->
+    <section id="view-personal" class="view-section hidden">
+      <div class="flex-between" style="margin-bottom:24px;">
+        <h1 style="font-size:24px; font-weight:600;">Gastos Personales</h1>
+        <button class="btn btn-primary" onclick="App.openModal('modal-personal')">+ Nuevo Gasto</button>
+      </div>
+
+      <div class="card" style="margin-bottom:24px;">
+        <div class="flex-between">
+          <div>
+            <span style="font-size:12px; font-weight:600; color:var(--color-mid-gray);">TOTAL ESTE MES</span>
+            <div class="stat-value" id="personal-total">$0.00</div>
           </div>
-
-          <div class="price-rule"></div>
-
-          <ul class="price-list">
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Grupos y gastos personales ilimitados</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Escaneo de tickets, voz y etiquetas</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> MSI, tarjetas, préstamos y quincenas</li>
-            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12.5 5 5L20 6.5"/></svg> Reportes mensuales y listas compartidas</li>
-          </ul>
-
-          <a href="#" class="btn btn-primary" style="width:100%">Crear mi cuenta gratis</a>
-          <p class="small" style="text-align:center;margin:0">Sin tarjeta de crédito. Sin compromisos.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       FAQ
-       ============================================================ -->
-  <section class="section section--tight">
-    <div class="container">
-      <div class="section-head section-head--center">
-        <span class="eyebrow">Preguntas frecuentes</span>
-        <h2 class="h2">Lo que suele preguntarse.</h2>
-      </div>
-
-      <div class="faq">
-        <details class="qa" open>
-          <summary>
-            ¿Realmente es gratis?
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="answer">Sí. Grupos ilimitados, gastos personales ilimitados, fotos de comprobantes, escaneo de tickets, control de meses sin intereses y presupuestos ilimitados. Sin versión “premium” escondida.</div>
-        </details>
-
-        <details class="qa">
-          <summary>
-            ¿Cómo funciona el recordatorio por WhatsApp?
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="answer">Si alguien del grupo te debe dinero, la app te da la opción de enviarle un mensaje automático y amigable vía WhatsApp para recordarle su parte de la cuenta, sin que tengas que escribir nada.</div>
-        </details>
-
-        <details class="qa">
-          <summary>
-            ¿Cómo se divide una cuenta?
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="answer">Elige partes iguales, porcentaje o montos específicos. La app calcula automáticamente quién debe a quién y lo muestra en el grupo, sin hojas de cálculo.</div>
-        </details>
-
-        <details class="qa">
-          <summary>
-            ¿Cómo funciona el escaneo y el gasto por voz?
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="answer">Tomas la foto del ticket y la IA extrae el monto, el comercio y los artículos. Si prefieres, puedes dictarle a la app "Cena 500 pesos" y ella llenará el formulario por ti.</div>
-        </details>
-
-        <details class="qa">
-          <summary>
-            ¿Qué pasa si uso Apple Pay?
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-          </summary>
-          <div class="answer">La app cuenta con seguimiento automático. Cuando pagas con Apple Pay, te notifica para que con un solo toque registres el gasto en la categoría correspondiente.</div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================
-       CTA FINAL
-       ============================================================ -->
-  <section class="section">
-    <div class="container">
-      <div class="cta-card">
-        <span class="badge badge-outline"><span class="dot" aria-hidden="true"></span> 100% gratis · Hecha en México</span>
-        <h2 class="display">Pon tus finanzas en orden hoy.</h2>
-        <p class="lead" style="max-width:52ch">Vivas solo, con roomies, en pareja o con tu familia: una sola app para tus gastos personales y compartidos.</p>
-        <div class="hero-cta" style="justify-content:center">
-          <a href="#" class="btn btn-primary btn-lg">
-            Empezar gratis
-            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
-          </a>
-          <a href="#compartidos" class="btn btn-outline btn-lg">Conocer más</a>
+          <button class="btn btn-ghost btn-sm" onclick="alert('Sincronizado con Apple Pay (Simulado)')">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Apple Pay
+          </button>
         </div>
       </div>
-    </div>
-  </section>
 
-</main>
+      <div class="card" style="padding: 0 20px;">
+        <div id="personal-list">
+          <!-- Renderizado por JS -->
+        </div>
+      </div>
+    </section>
+
+    <!-- VISTA: GRUPOS -->
+    <section id="view-groups" class="view-section hidden">
+      <div class="flex-between" style="margin-bottom:24px;">
+        <h1 style="font-size:24px; font-weight:600;">Grupos</h1>
+        <button class="btn btn-primary" onclick="App.openModal('modal-group')">+ Crear Grupo</button>
+      </div>
+
+      <div id="groups-list" class="grid-2">
+        <!-- Renderizado por JS -->
+      </div>
+    </section>
+
+    <!-- VISTA: MSI -->
+    <section id="view-msi" class="view-section hidden">
+      <div class="flex-between" style="margin-bottom:24px;">
+        <h1 style="font-size:24px; font-weight:600;">Pagos a Meses</h1>
+        <button class="btn btn-primary" onclick="App.openModal('modal-msi')">+ Registrar MSI</button>
+      </div>
+
+      <div class="card" style="margin-bottom:24px; background:var(--color-ink); color:var(--color-paper);">
+        <span style="font-size:12px; font-weight:500; opacity:0.8;">DEUDA TOTAL</span>
+        <div style="font-size:36px; font-weight:600; letter-spacing:-.02em;" id="msi-total-debt">$0.00</div>
+      </div>
+
+      <div class="grid-2" id="msi-list">
+        <!-- Renderizado por JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MOBILE NAV -->
+  <nav class="mobile-nav">
+    <a href="#" class="nav-item active" onclick="App.navigate('dashboard', this)"><svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></a>
+    <a href="#" class="nav-item" onclick="App.navigate('personal', this)"><svg class="icon" viewBox="0 0 24 24"><path d="M20 12V8H6a2 2 0 0 1-2-2c0-1.1.9-2 2-2h12v4"/><path d="M4 6v12a2 2 0 0 0 2 2h14v-4"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></a>
+    <a href="#" class="nav-item" onclick="App.navigate('groups', this)"><svg class="icon" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></a>
+    <a href="#" class="nav-item" onclick="App.navigate('msi', this)"><svg class="icon" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M8 3v4M16 3v4M3.5 10h17"/></svg></a>
+  </nav>
+</div>
 
 <!-- ============================================================
-     FOOTER
+     MODALES (Formularios)
      ============================================================ -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
 
-      <div class="stack gap-12">
-        <a href="#" class="brand"><span class="mark" aria-hidden="true"></span> Cuenta Clara</a>
-        <p class="small" style="max-width:34ch">Controla tus gastos personales y compartidos en una sola app. Totalmente gratis.</p>
-        <span class="badge badge-soft" style="align-self:flex-start">Hecha en México</span>
-      </div>
-
-      <div>
-        <h4>Producto</h4>
-        <ul>
-          <li><a href="#compartidos">Gastos compartidos</a></li>
-          <li><a href="#personal">Gastos personales</a></li>
-          <li><a href="#msi">Meses sin intereses</a></li>
-          <li><a href="#gratis">Precio</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Recursos</h4>
-        <ul>
-          <li><a href="#">Foro</a></li>
-          <li><a href="#">Reportes</a></li>
-          <li><a href="#">Guías de presupuesto</a></li>
-          <li><a href="#">Centro de ayuda</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4>Legal</h4>
-        <ul>
-          <li><a href="#">Aviso de privacidad</a></li>
-          <li><a href="#">Términos de uso</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </div>
-
+<!-- Modal Escanear -->
+<div id="modal-scan" class="modal-overlay hidden">
+  <div class="modal-content">
+    <button class="modal-close" onclick="App.closeModal('modal-scan')">✕</button>
+    <h2 style="font-size:20px; font-weight:600; margin-bottom:16px;">Escanear Ticket</h2>
+    <div class="control" style="height:120px; flex-direction:column; justify-content:center; border:2px dashed var(--color-hairline); background:var(--color-surface-alt);">
+      <svg class="icon" style="width:32px;height:32px;color:var(--color-mid-gray);margin-bottom:8px;" viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M20 8V5a1 1 0 0 0-1-1h-3M4 16v3a1 1 0 0 0 1 1h3M20 16v3a1 1 0 0 1-1 1h-3"/><path d="M3 12h18"/></svg>
+      <span style="font-size:12px; color:var(--color-mid-gray);">Cámara simulada</span>
     </div>
-
-    <div class="footer-bottom">
-      <span>© 2025 Cuenta Clara. Pesos mexicanos (MXN).</span>
-      <span>Hecha en México · Gratis para siempre</span>
-    </div>
+    <p style="font-size:13px; color:var(--color-mid-gray); text-align:center; margin:16px 0;">La IA detectará: OXXO, $145.50, Comida</p>
+    <button class="btn btn-primary" style="width:100%;" onclick="App.simulateScan()">Escanear ahora</button>
   </div>
-</footer>
+</div>
+
+<!-- Modal Voz -->
+<div id="modal-voice" class="modal-overlay hidden">
+  <div class="modal-content" style="text-align:center;">
+    <button class="modal-close" onclick="App.closeModal('modal-voice')">✕</button>
+    <div style="width:80px; height:80px; border-radius:50%; background:var(--color-canvas); margin:0 auto 16px; display:grid; place-items:center; color:var(--color-ember);">
+      <svg class="icon" style="width:32px; height:32px;" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg>
+    </div>
+    <h2 style="font-size:20px; font-weight:600; margin-bottom:8px;">Escuchando...</h2>
+    <p style="font-size:14px; color:var(--color-mid-gray); margin-bottom:24px;">"Cena de sushi 400 pesos"</p>
+    <button class="btn btn-primary" style="width:100%;" onclick="App.simulateVoice()">Procesar audio</button>
+  </div>
+</div>
+
+<!-- Modal Gasto Personal -->
+<div id="modal-personal" class="modal-overlay hidden">
+  <div class="modal-content">
+    <button class="modal-close" onclick="App.closeModal('modal-personal')">✕</button>
+    <h2 style="font-size:20px; font-weight:600; margin-bottom:16px;">Nuevo Gasto</h2>
+    <form id="form-personal" onsubmit="App.savePersonal(event)">
+      <div class="field">
+        <label>Monto</label>
+        <div class="control"><span class="prefix">$</span><input type="number" id="p-amount" step="0.01" required placeholder="0.00"></div>
+      </div>
+      <div class="field">
+        <label>Concepto</label>
+        <div class="control"><input type="text" id="p-concept" required placeholder="Ej. Comida, Uber..."></div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Categoría</label>
+          <div class="control">
+            <select id="p-category">
+              <option value="Comida">Comida</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Súper">Súper</option>
+              <option value="Entretenimiento">Entretenimiento</option>
+              <option value="Otros">Otros</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Etiqueta</label>
+          <div class="control"><input type="text" id="p-tag" placeholder="#cine, #viaje"></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">Guardar Gasto</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Crear Grupo -->
+<div id="modal-group" class="modal-overlay hidden">
+  <div class="modal-content">
+    <button class="modal-close" onclick="App.closeModal('modal-group')">✕</button>
+    <h2 style="font-size:20px; font-weight:600; margin-bottom:16px;">Crear Grupo</h2>
+    <form id="form-group" onsubmit="App.saveGroup(event)">
+      <div class="field">
+        <label>Nombre del grupo</label>
+        <div class="control"><input type="text" id="g-name" required placeholder="Ej. Roomies, Viaje a Cancún..."></div>
+      </div>
+      <div class="field">
+        <label>Integrantes (separados por coma)</label>
+        <div class="control"><input type="text" id="g-members" required placeholder="Azel, Evelyn, Carlos"></div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">Crear Grupo</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal MSI -->
+<div id="modal-msi" class="modal-overlay hidden">
+  <div class="modal-content">
+    <button class="modal-close" onclick="App.closeModal('modal-msi')">✕</button>
+    <h2 style="font-size:20px; font-weight:600; margin-bottom:16px;">Registrar Meses sin Intereses</h2>
+    <form id="form-msi" onsubmit="App.saveMSI(event)">
+      <div class="field">
+        <label>Concepto</label>
+        <div class="control"><input type="text" id="m-concept" required placeholder="Ej. MacBook, Refri..."></div>
+      </div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Monto Total</label>
+          <div class="control"><span class="prefix">$</span><input type="number" id="m-total" required placeholder="0.00"></div>
+        </div>
+        <div class="field">
+          <label>Meses</label>
+          <div class="control">
+            <select id="m-months">
+              <option value="3">3 meses</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+              <option value="18">18 meses</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="width:100%; margin-top:8px;">Registrar MSI</button>
+    </form>
+  </div>
+</div>
+
+<!-- Modal Detalle de Grupo (Añadir gasto y ver balances) -->
+<div id="modal-group-detail" class="modal-overlay hidden">
+  <div class="modal-content" style="max-width:600px;">
+    <button class="modal-close" onclick="App.closeModal('modal-group-detail')">✕</button>
+    <h2 style="font-size:20px; font-weight:600; margin-bottom:4px;" id="gd-name">Grupo</h2>
+    <p style="font-size:12px; color:var(--color-mid-gray); margin-bottom:16px;" id="gd-members">Integrantes</p>
+    
+    <div class="card" style="background:var(--color-canvas); box-shadow:none; margin-bottom:16px;">
+      <h3 style="font-size:14px; font-weight:600; margin-bottom:8px;">Añadir Gasto al Grupo</h3>
+      <form id="form-group-expense" onsubmit="App.saveGroupExpense(event)">
+        <input type="hidden" id="ge-group-id">
+        <div class="grid-2">
+          <div class="field">
+            <label>Concepto</label>
+            <div class="control"><input type="text" id="ge-concept" required placeholder="Ej. Cena"></div>
+          </div>
+          <div class="field">
+            <label>Monto</label>
+            <div class="control"><span class="prefix">$</span><input type="number" id="ge-amount" required step="0.01"></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>¿Quién pagó?</label>
+          <div class="control"><select id="ge-payer"></select></div>
+        </div>
+        <div class="field">
+          <label>División</label>
+          <div class="control">
+            <select id="ge-split" onchange="document.getElementById('ge-custom-split').classList.toggle('hidden', this.value !== 'custom')">
+              <option value="equal">Partes iguales</option>
+              <option value="custom">Montos específicos (Demo: 70/30)</option>
+            </select>
+          </div>
+        </div>
+        <div id="ge-custom-split" class="hidden" style="font-size:12px; color:var(--color-mid-gray); margin-bottom:12px;">Se dividirá el 70% al primero y 30% al segundo.</div>
+        <button type="submit" class="btn btn-primary btn-sm" style="width:100%;">Guardar Gasto Compartido</button>
+      </form>
+    </div>
+
+    <h3 style="font-size:14px; font-weight:600; margin-bottom:8px;">Balances</h3>
+    <div id="gd-balances" class="card" style="box-shadow:none; border:1px solid var(--color-hairline); padding:12px;"></div>
+  </div>
+</div>
 
 <script>
-(function () {
-  var fmt = new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' });
-  var names = ['Ana', 'Beto', 'Caro', 'Dani', 'Eme'];
+// ==========================================
+// LÓGICA DE LA APLICACIÓN (STATE & STORAGE)
+// ==========================================
+const DB = {
+  personal: JSON.parse(localStorage.getItem('cc_personal')) || [],
+  groups: JSON.parse(localStorage.getItem('cc_groups')) || [
+    { id: 'g1', name: 'Roomies', members: ['Azel', 'Evelyn', 'Carlos'], expenses: [] },
+    { id: 'g2', name: 'Viaje a Cancún', members: ['Azel', 'Evelyn'], expenses: [] }
+  ],
+  msi: JSON.parse(localStorage.getItem('cc_msi')) || []
+};
 
-  var montoEl = document.getElementById('monto');
-  var personasEl = document.getElementById('personas');
-  var modoEl = document.getElementById('modo');
-  var listEl = document.getElementById('splitList');
-  var totalEl = document.getElementById('demoTotal');
+const App = {
+  // Navegación
+  navigate: function(viewId, el) {
+    document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
+    document.getElementById('view-' + viewId).classList.remove('hidden');
+    
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if(el) el.classList.add('active');
 
-  if (!montoEl || !personasEl || !modoEl || !listEl || !totalEl) return;
+    // Actualizar vista
+    if(viewId === 'dashboard') this.renderDashboard();
+    if(viewId === 'personal') this.renderPersonal();
+    if(viewId === 'groups') this.renderGroups();
+    if(viewId === 'msi') this.renderMSI();
+  },
 
-  function render() {
-    var total = Math.max(0, parseFloat(montoEl.value) || 0);
-    var n = parseInt(personasEl.value, 10) || 2;
-    var modo = modoEl.value;
-    var shares = [];
+  // Modales
+  openModal: function(id) {
+    document.getElementById(id).classList.remove('hidden');
+  },
+  closeModal: function(id) {
+    document.getElementById(id).classList.add('hidden');
+    // Limpiar formularios
+    const form = document.querySelector(`#${id} form`);
+    if(form) form.reset();
+  },
 
-    if (modo === 'iguales') {
-      for (var i = 0; i < n; i++) {
-        shares.push({ pct: 100 / n, amount: total / n });
-      }
+  // Guardar en LocalStorage
+  saveDB: function() {
+    localStorage.setItem('cc_personal', JSON.stringify(DB.personal));
+    localStorage.setItem('cc_groups', JSON.stringify(DB.groups));
+    localStorage.setItem('cc_msi', JSON.stringify(DB.msi));
+  },
+
+  // Formato de Moneda
+  formatMoney: function(amount) {
+    return new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(amount);
+  },
+
+  // Simulaciones IA
+  simulateScan: function() {
+    this.closeModal('modal-scan');
+    this.openModal('modal-personal');
+    document.getElementById('p-amount').value = "145.50";
+    document.getElementById('p-concept').value = "OXXO - Súper";
+    document.getElementById('p-category').value = "Súper";
+    document.getElementById('p-tag').value = "#oxxo";
+  },
+  simulateVoice: function() {
+    this.closeModal('modal-voice');
+    this.openModal('modal-personal');
+    document.getElementById('p-amount').value = "400.00";
+    document.getElementById('p-concept').value = "Sushi";
+    document.getElementById('p-category').value = "Comida";
+    document.getElementById('p-tag').value = "#cena";
+  },
+
+  // GUARDAR GASTO PERSONAL
+  savePersonal: function(e) {
+    e.preventDefault();
+    const newExpense = {
+      id: Date.now().toString(),
+      amount: parseFloat(document.getElementById('p-amount').value),
+      concept: document.getElementById('p-concept').value,
+      category: document.getElementById('p-category').value,
+      tag: document.getElementById('p-tag').value,
+      date: new Date().toISOString()
+    };
+    DB.personal.unshift(newExpense);
+    this.saveDB();
+    this.closeModal('modal-personal');
+    this.renderPersonal();
+    this.renderDashboard();
+  },
+
+  // GUARDAR GRUPO
+  saveGroup: function(e) {
+    e.preventDefault();
+    const name = document.getElementById('g-name').value;
+    const members = document.getElementById('g-members').value.split(',').map(s => s.trim());
+    
+    const newGroup = {
+      id: 'g' + Date.now(),
+      name: name,
+      members: members,
+      expenses: []
+    };
+    DB.groups.push(newGroup);
+    this.saveDB();
+    this.closeModal('modal-group');
+    this.renderGroups();
+  },
+
+  // VER DETALLE DE GRUPO
+  openGroupDetail: function(id) {
+    const group = DB.groups.find(g => g.id === id);
+    if(!group) return;
+
+    document.getElementById('gd-name').textContent = group.name;
+    document.getElementById('gd-members').textContent = group.members.join(', ');
+    document.getElementById('ge-group-id').value = group.id;
+
+    // Llenar select de quién pagó
+    const payerSelect = document.getElementById('ge-payer');
+    payerSelect.innerHTML = group.members.map(m => `<option value="${m}">${m}</option>`).join('');
+
+    this.renderGroupBalances(group);
+    this.openModal('modal-group-detail');
+  },
+
+  // GUARDAR GASTO DE GRUPO
+  saveGroupExpense: function(e) {
+    e.preventDefault();
+    const groupId = document.getElementById('ge-group-id').value;
+    const group = DB.groups.find(g => g.id === groupId);
+    if(!group) return;
+
+    const amount = parseFloat(document.getElementById('ge-amount').value);
+    const payer = document.getElementById('ge-payer').value;
+    const splitType = document.getElementById('ge-split').value;
+    
+    let shares = {};
+    if(splitType === 'equal') {
+      const perPerson = amount / group.members.length;
+      group.members.forEach(m => shares[m] = perPerson);
     } else {
-      var base = [50, 30, 20, 10, 5].slice(0, n);
-      var sum = base.reduce(function (a, b) { return a + b; }, 0) || 1;
-      shares = base.map(function (w) {
-        return { pct: (w / sum) * 100, amount: (total * w) / sum };
+      // Custom Demo: 70% al primero, 30% al segundo (si hay más, 0)
+      group.members.forEach((m, i) => {
+        if(i === 0) shares[m] = amount * 0.70;
+        else if(i === 1) shares[m] = amount * 0.30;
+        else shares[m] = 0;
       });
     }
 
-    listEl.innerHTML = shares.map(function (s, i) {
-      return '<div class="split-row">' +
-        '<span class="avatar" aria-hidden="true">' + names[i].charAt(0) + '</span>' +
-        '<span class="split-name">' + names[i] + '</span>' +
-        '<span class="split-pct">' + Math.round(s.pct) + '%</span>' +
-        '<span class="split-amt">' + fmt.format(s.amount) + '</span>' +
-      '</div>';
+    const expense = {
+      id: Date.now().toString(),
+      concept: document.getElementById('ge-concept').value,
+      amount: amount,
+      payer: payer,
+      shares: shares,
+      date: new Date().toISOString()
+    };
+
+    group.expenses.push(expense);
+    this.saveDB();
+    
+    // Resetear form y actualizar vista
+    document.getElementById('form-group-expense').reset();
+    this.renderGroupBalances(group);
+    this.renderGroups();
+    this.renderDashboard();
+  },
+
+  // CÁLCULO DE BALANCES (Quién debe a quién)
+  renderGroupBalances: function(group) {
+    const balances = {};
+    group.members.forEach(m => balances[m] = 0);
+
+    // Calcular cuánto ha pagado y cuánto debe cada quien
+    group.expenses.forEach(exp => {
+      // El que pagó suma a su favor
+      balances[exp.payer] += exp.amount;
+      // A cada quien se le resta su parte
+      for(const [member, share] of Object.entries(exp.shares)) {
+        balances[member] -= share;
+      }
+    });
+
+    // Formatear balances
+    let html = '';
+    let debts = [];
+
+    for(const [member, bal] of Object.entries(balances)) {
+      if(bal > 0.01) {
+        debts.push(`${member} le deben ${this.formatMoney(bal)}`);
+      } else if(bal < -0.01) {
+        debts.push(`${member} debe ${this.formatMoney(Math.abs(bal))}`);
+      }
+    }
+
+    if(debts.length === 0) {
+      html = '<p style="font-size:12px; color:var(--color-mid-gray);">Todos a mano. No hay deudas pendientes.</p>';
+    } else {
+      html = debts.map(d => `<div style="padding:6px 0; font-size:13px; font-weight:500;">${d}</div>`).join('');
+    }
+
+    // Botón de WhatsApp si hay deuda (simplificado para el primer deudor)
+    const debtors = Object.entries(balances).filter(([_, bal]) => bal < -0.01);
+    if(debtors.length > 0) {
+      const debtorName = debtors[0][0];
+      const amount = Math.abs(debtors[0][1]);
+      const msg = encodeURIComponent(`¡Hola ${debtorName}! Te recuerdo que me debes ${this.formatMoney(amount)} de ${group.name}. ¿Me lo transfieres? (Recordatorio de Cuenta Clara)`);
+      html += `
+        <div style="margin-top:12px; padding-top:12px; border-top:1px solid var(--color-hairline);">
+          <a href="https://wa.me/?text=${msg}" target="_blank" class="btn btn-outline btn-sm" style="width:100%;">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.5 8.5 8.5 0 0 1-4-1L3 21l1.5-4.5a8.5 8.5 0 1 1 16.5-5Z"/></svg>
+            Recordar por WhatsApp
+          </a>
+        </div>
+      `;
+    }
+
+    document.getElementById('gd-balances').innerHTML = html;
+  },
+
+  // GUARDAR MSI
+  saveMSI: function(e) {
+    e.preventDefault();
+    const total = parseFloat(document.getElementById('m-total').value);
+    const months = parseInt(document.getElementById('m-months').value);
+    
+    const newMSI = {
+      id: 'm' + Date.now(),
+      concept: document.getElementById('m-concept').value,
+      total: total,
+      months: months,
+      monthlyPayment: total / months,
+      paidMonths: 0
+    };
+    
+    DB.msi.push(newMSI);
+    this.saveDB();
+    this.closeModal('modal-msi');
+    this.renderMSI();
+    this.renderDashboard();
+  },
+
+  // RENDERIZADO: DASHBOARD
+  renderDashboard: function() {
+    // Personales
+    const totalPersonal = DB.personal.reduce((sum, exp) => sum + exp.amount, 0);
+    document.getElementById('dash-personal-total').textContent = this.formatMoney(totalPersonal);
+    const budget = 4000; // Hardcoded demo
+    const percent = Math.min((totalPersonal / budget) * 100, 100);
+    document.getElementById('dash-personal-bar').style.width = percent + '%';
+
+    // MSI
+    const totalMSI = DB.msi.reduce((sum, m) => sum + m.total, 0);
+    document.getElementById('dash-msi-total').textContent = this.formatMoney(totalMSI);
+    document.getElementById('dash-msi-count').textContent = DB.msi.length + ' compras activas';
+
+    // Grupos
+    const groupsHtml = DB.groups.map(g => `
+      <div class="list-item" style="cursor:pointer;" onclick="App.openGroupDetail('${g.id}')">
+        <div class="item-info">
+          <span class="item-title">${g.name}</span>
+          <span class="item-sub">${g.members.length} integrantes</span>
+        </div>
+        <svg class="icon icon-sm" style="color:var(--color-mid-gray);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+      </div>
+    `).join('');
+    document.getElementById('dash-groups-list').innerHTML = groupsHtml || '<p style="padding:16px; font-size:13px; color:var(--color-mid-gray);">No hay grupos creados.</p>';
+  },
+
+  // RENDERIZADO: GASTOS PERSONALES
+  renderPersonal: function() {
+    const total = DB.personal.reduce((sum, exp) => sum + exp.amount, 0);
+    document.getElementById('personal-total').textContent = this.formatMoney(total);
+
+    const listHtml = DB.personal.map(exp => `
+      <div class="list-item">
+        <div class="item-info">
+          <span class="item-title">${exp.concept}</span>
+          <span class="item-sub">${exp.category} ${exp.tag ? `<span class="tag">${exp.tag}</span>` : ''}</span>
+        </div>
+        <div class="item-amt">-${this.formatMoney(exp.amount)}</div>
+      </div>
+    `).join('');
+
+    document.getElementById('personal-list').innerHTML = listHtml || '<p style="padding:16px; font-size:13px; color:var(--color-mid-gray); text-align:center;">Aún no has registrado gastos este mes.</p>';
+  },
+
+  // RENDERIZADO: GRUPOS
+  renderGroups: function() {
+    const html = DB.groups.map(g => {
+      const totalExp = g.expenses.reduce((sum, e) => sum + e.amount, 0);
+      return `
+        <div class="card" style="cursor:pointer; transition:transform 0.1s;" onclick="App.openGroupDetail('${g.id}')">
+          <div class="flex-between" style="margin-bottom:12px;">
+            <div class="flex-center">
+              <div style="width:32px; height:32px; border-radius:8px; background:var(--color-canvas); display:grid; place-items:center;">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              </div>
+              <div>
+                <strong style="display:block; font-size:15px;">${g.name}</strong>
+                <span style="font-size:11px; color:var(--color-mid-gray);">${g.members.length} miembros</span>
+              </div>
+            </div>
+            <svg class="icon icon-sm" style="color:var(--color-mid-gray);" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
+          </div>
+          <div style="display:flex; gap:16px; border-top:1px solid var(--color-hairline); padding-top:12px;">
+            <div>
+              <span style="font-size:10px; color:var(--color-mid-gray); text-transform:uppercase;">Total</span>
+              <div style="font-weight:600; font-size:14px;">${this.formatMoney(totalExp)}</div>
+            </div>
+            <div>
+              <span style="font-size:10px; color:var(--color-mid-gray); text-transform:uppercase;">Gastos</span>
+              <div style="font-weight:600; font-size:14px;">${g.expenses.length}</div>
+            </div>
+          </div>
+        </div>
+      `;
     }).join('');
 
-    totalEl.textContent = fmt.format(total);
+    document.getElementById('groups-list').innerHTML = html;
+  },
+
+  // RENDERIZADO: MSI
+  renderMSI: function() {
+    const totalDebt = DB.msi.reduce((sum, m) => sum + m.total, 0);
+    document.getElementById('msi-total-debt').textContent = this.formatMoney(totalDebt);
+
+    const html = DB.msi.map(m => {
+      const percent = (m.paidMonths / m.months) * 100;
+      return `
+        <div class="card">
+          <div class="flex-between" style="margin-bottom:8px;">
+            <strong style="font-size:15px;">${m.concept}</strong>
+            <span class="badge badge-soft">${m.months} meses</span>
+          </div>
+          <div style="font-size:20px; font-weight:600; margin-bottom:8px;">${this.formatMoney(m.monthlyPayment)} <span style="font-size:12px; color:var(--color-mid-gray); font-weight:400;">/ mes</span></div>
+          
+          <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--color-mid-gray); margin-bottom:4px;">
+            <span>${m.paidMonths} de ${m.months} pagos</span>
+            <span>${Math.round(percent)}%</span>
+          </div>
+          <div class="progress-bar" style="margin-top:0;"><div class="progress-fill" style="width:${percent}%; background:var(--color-ink);"></div></div>
+          
+          <div style="margin-top:12px; font-size:11px; color:var(--color-ember); display:flex; align-items:center; gap:4px;">
+            <svg class="icon" style="width:12px; height:12px;" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Próximo pago pronto
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('msi-list').innerHTML = html;
   }
+};
 
-  montoEl.addEventListener('input', render);
-  personasEl.addEventListener('change', render);
-  modoEl.addEventListener('change', render);
-
-  render();
-})();
+// Inicializar vista
+document.addEventListener('DOMContentLoaded', () => {
+  App.renderDashboard();
+});
 </script>
-
 </body>
 </html>
